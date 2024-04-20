@@ -11,10 +11,10 @@ export const JOB_TYPE = {
 };
 
 export const JOB_SORT_BY = {
-  NEWEST_FIRST: "Newest_first",
-  OLDEST_FIRST: "oldest_first",
-  ASCENDING: "ascending",
-  DESCENDING: "descending",
+  NEWEST_FIRST: "newest",
+  OLDEST_FIRST: "oldest",
+  ASCENDING: "a-z",
+  DESCENDING: "z-a",
 };
 
 export const USER_ROLE = {
