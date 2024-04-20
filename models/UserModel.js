@@ -18,6 +18,8 @@ const UserSchema = new mongoose.Schema({
     enum: Object.values(USER_ROLE),
     default: "user",
   },
+  avatar: String,
+  avatarPublicId: String,
 });
 
 // Will return user without their password
