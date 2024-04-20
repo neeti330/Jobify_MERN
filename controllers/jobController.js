@@ -18,7 +18,7 @@ export const getSingleJob = async (req, res) => {
 };
 
 export const updateJob = async (req, res) => {
-  const updatedJob = await Job.findOneAndUpdate(req.params.id, req.body, {
+  const updatedJob = await Job.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
   res.status(StatusCodes.OK).json({ msg: "Job modified", job: updatedJob });
