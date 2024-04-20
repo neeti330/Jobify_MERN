@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import {
   Form,
   Link,
@@ -26,8 +25,8 @@ export const action = async ({ request }) => {
     toast.success("Login successful");
     return redirect("/dashboard");
   } catch (error) {
-    // toast.error(error?.response?.data?.msg);
-    errors.msg = error?.response?.data?.msg;
+    toast.error(error?.response?.data?.msg);
+    // errors.msg = error?.response?.data?.msg;
     return error;
   }
 };
