@@ -1,20 +1,34 @@
+import "express-async-errors";
 import * as dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 const app = express();
 import morgan from "morgan";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 
 //* routers
 import jobRouter from "./routes/jobRouter.js";
+import authRouter from "./routes/authRouter.js";
+import userRouter from "./routes/userRouter.js";
+
+//* middleware
+import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
+import { authenticateUser } from "./middleware/authMiddleware.js";
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
-
+app.use(cookieParser());
 app.use(express.json());
 
-app.use("/api/v1/jobs", jobRouter);
+app.get("/", (req, res) => {
+  res.send("Hello world");
+});
+
+app.use("/api/v1/jobs", authenticateUser, jobRouter);
+app.use("/api/v1/user", authenticateUser, userRouter);
+app.use("/api/v1/auth", authRouter);
 
 //* NOT FOUND MIDDLEWARE * means for all request
 app.use("*", (req, res) => {
@@ -22,10 +36,7 @@ app.use("*", (req, res) => {
 });
 
 //* ERROR MIDDLEWARE
-app.use((err, req, res, next) => {
-  console.log(err);
-  res.status(500).json({ msg: "something went wrong" });
-});
+app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 5100;
 
