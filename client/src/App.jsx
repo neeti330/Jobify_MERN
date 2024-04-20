@@ -13,7 +13,9 @@ import {
   Stats,
 } from "./pages";
 
-// eslint-disable-next-line react-refresh/only-export-components
+import { action as registerAction } from "./pages/Register";
+import { action as loginAction } from "./pages/Login";
+
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("darkTheme") == "true";
   document.body.classList.toggle("dark-theme", isDarkTheme);
@@ -29,8 +31,12 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { index: true, element: <Landing /> },
-      { path: "register", element: <Register /> },
-      { path: "login", element: <Login /> },
+      {
+        path: "register",
+        element: <Register />,
+        action: registerAction,
+      },
+      { path: "login", element: <Login />, action: loginAction },
       {
         path: "dashboard",
         element: <DashboardLayout />,
